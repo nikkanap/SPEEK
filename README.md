@@ -38,53 +38,50 @@ Enter the code to create the my-app vite project:
 
 Then go to App.tsx and add the pages in the `<BrowserRouter>` element .
 
-### II. Backend Framework: Python + Flask 
+### II. Backend Framework: Python + Django 
 1. Created a .env file containing database content (added it to .gitignore)
 2. Created a venv for the python packages needed for the project: `python3 -m venv [name_of_env]`
-3. Installed all the required packages for the program like flask, dotenv, etc.
+3. Installed all the required packages for the program like django, dotenv, etc.
 
 #### Installed Libraries:
-1. flask - for handling HTTP requests: 
-`pip install flask`
-2. flask_cors - handles cross-origin resource sharing (different ports): 
-`pip install flask-cors`
-3. flask_socketio - can be used to run the app; also handles websockets: 
-`pip install flask-socketio`
+1. django - project: 
+`pip install django`
+2. corsheaders - handles cross-origin resource sharing (different ports): 
+`pip install corsheaders`
+3. django_channels - can be used to run the app; also handles websockets: 
+`pip install django-channels`
 4. psycopg2.pool - where psycopg2 is the python database driver for psql, and psycopg2.pool allows reusing of connections instead of opening and closing multiple connections to the db: 
 `pip install psycopg2-binary`
 5. passlib.hash - specifically bcrypt for hashing user passwords: 
 `pip install passlib(bcrypt)`
 
 #### Running Server:
-1. Enter the "backend" directory: `cd backend`
-2. Turn on virtual environment: `source ./venv/bin/activate`
-3. Run the server: `python server.py`
+Either run the `run.sh` file or run using docker commands `docker compose up --build`.
 
 ### III. Database: PostgreSQL
-What I did was:
 - Install postgresql using
 `sudo apt install postgresql postgresql-contrib -y`
 Then I logged in, added a password, and created "speekdb", the database for SPEEK. I saved the database information into an .env file (added to .gitignore). 
 
 ## Ports and Host:
 + **Frontend Port:** 3000 (changed from vite default of 5173)
-+ **Backend Port:** 5001 (changed from flask default of 5000)
++ **Backend Port:** 8000 (Django default port)
 
 ## Features/Requirements:
 ### User Management:
-- [x] The user must be able to register an account 
-- [x] The user must be able to login to an existing account
-- [x] The user must be able to log out of their account after use
-- [x] The user must be able to delete their account if they wish to
-- [x] The user must be able to modify their user information [ongoing]
+- [ ] The user must be able to register an account 
+- [ ] The user must be able to login to an existing account
+- [ ] The user must be able to log out of their account after use
+- [ ] The user must be able to delete their account if they wish to
+- [ ] The user must be able to modify their user information [ongoing]
 - [ ] \(Optional) The user must be able to add a profile picture 
 - [ ] \(Optional) The user must be able to remove a profile picture 
-- [x] The user must be able to modify their password
+- [ ] The user must be able to modify their password
 
 ### Messaging
-- [x] The user must be able to select a user to chat with
-- [x] The user must be able to receive messages from another user
-- [x] The user must be able to send messages to another user 
+- [ ] The user must be able to select a user to chat with
+- [ ] The user must be able to receive messages from another user
+- [ ] The user must be able to send messages to another user 
 - [ ] The user must be able to delete individual messages
 - [ ] The user must be able to archive chats
 - [ ] Messages must be persistent/sustained
@@ -95,9 +92,9 @@ Then I logged in, added a password, and created "speekdb", the database for SPEE
 - [ ] Notifications must be maintained in their notifications inbox
 
 ### Additional Notes (Technical):
-- [x] User passwords must be hashed before saving to the database (use bcrypt)
-- [x] userIDs in the database must be unique (no duplicates)
+- [ ] User passwords must be hashed before saving to the database (use bcrypt)
+- [ ] userIDs in the database must be unique (no duplicates)
 - [ ] Error checking for username, email, and password when signing in
 - [ ] Error checking for updating password
 - [ ] Create unique roomIDs that can be reused depending on who's chatting with who
-- [x] Create new table called "rooms" where roomIDs, user1ID and user2ID can be saved
+- [ ] Create new table called "rooms" where roomIDs, user1ID and user2ID can be saved
