@@ -3,7 +3,7 @@ services:
     container_name: postgres
     image: postgres
     environment:
-      POSTGRES_DB: speek
+      POSTGRES_DB: ${DATABASE_NAME}
       POSTGRES_USER: ${DATABASE_USER} # from env
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     ports:
@@ -11,9 +11,9 @@ services:
     env_file:
     - .env
     volumes: # persistent data
-    - db_data: /usr/lib/postgresql/16/bin/postgres
+    - db_data:/usr/lib/postgresql/16/bin/postgres
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME}"]
       interval: 5s
       timeout: 3s
       retries: 3
@@ -25,8 +25,8 @@ services:
       - .env
     build: .
     command: python manage.py makemigrations
-    volumes: 
-      - web_data: .:/app 
+    #volumes: 
+    #  - web_data:.:/app 
     depends_on: 
       db: 
         condition: service_healthy
@@ -47,27 +47,25 @@ services:
       - .env
     ports:
       - '8000:8000'
-    # later na it gunicorn
+    # later na it gunicorn or uvicorn 
     command: python manage.py runserver 0.0.0.0:8000
-  volumes: 
-    - web_data: .:/app
-  depends_on:
-    migrate: 
-      condition: service_completed_successfully
-  healthcheck:
-    test: ["CMD", "curl", "-f", "http://localhost:8000/health/"]
-    interval: 5s
-    timeout: 3s
-    retries: 5
-    start_period: 10s
+    #volumes: 
+    #  - web_data:.:/app
+    depends_on:
+      migrate: 
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health/"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+
 volumes:
   web_data:
   db_data:
     driver: local
-    driver_opts:
-      type: none
-      device: /data/db_data
-      o: bind
 
 
   
