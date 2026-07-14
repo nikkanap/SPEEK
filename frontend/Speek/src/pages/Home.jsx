@@ -1,7 +1,6 @@
 //import { useState } from 'react'
-//import reactLogo from './assets/react.svg'
-//import viteLogo from './assets/vite.svg'
-//import heroImg from './assets/hero.png'
+import { Link } from 'react-router-dom'
+import Header from '../components/Header'
 import './Home.css'
 
 function Home() {
@@ -9,7 +8,10 @@ function Home() {
 
   return (
     <>
-      Hello World
+      <Header />
+      <h1>SPEEK - Chat Messaging Application</h1>
+      <Link to='login/'>Login</Link>
+      <Link to='signup/'>Signup</Link>
     </>
   )
 }
