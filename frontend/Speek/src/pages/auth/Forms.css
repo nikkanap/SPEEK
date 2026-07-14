@@ -1,0 +1,31 @@
+/*Form container styling*/
+.form-container {
+  display: flex;
+  flex-direction: column;
+  max-width: max-content;
+  margin: auto;
+  margin-top: 20px;
+  gap: 10px;
+
+  label {
+    text-align: left;
+    display: grid;
+    grid-template-columns: auto 250px;
+    gap: 20px;
+  }
+}
+
+/*Buttons within the form*/
+.form-buttons {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px;
+  margin: auto;
+
+  button {
+    max-width: max-content;
+    padding: 5px 20px;
+    border-radius: 5px;
+    border: none;
+  }
+}
