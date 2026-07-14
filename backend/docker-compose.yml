@@ -1,13 +1,14 @@
 services: 
   db: # database service
-    container_name: postgres
-    image: postgres
+    container_name: speek-postgres
+    image: speek-postgres
     environment:
       POSTGRES_DB: ${DATABASE_NAME}
       POSTGRES_USER: ${DATABASE_USER} # from env
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     ports:
-    - '5432:5432'
+    - '5332:5432'
+    build: .
     env_file:
     - .env
     volumes: # persistent data
@@ -18,21 +19,19 @@ services:
       timeout: 3s
       retries: 3
       start_period: 5s # for now since small db
-  makemigrations: # django makemigrations
-    container_name: django-makemigrations
-    image: django-makemigrations
+  makemigrations: 
+    container_name: speek-makemigrations
+    image: speek-makemigrations
     env_file:
       - .env
     build: .
     command: python manage.py makemigrations
-    #volumes: 
-    #  - web_data:.:/app 
     depends_on: 
       db: 
         condition: service_healthy
   migrate: # django migrate
-    container_name: django-migrate
-    image: django-migrate
+    container_name: speek-migrate
+    image: speek-migrate
     env_file:
       - .env
     build: .
@@ -41,16 +40,17 @@ services:
       makemigrations:
         condition: service_completed_successfully
   server: # webserver
-    container_name: webserver
-    image: django-server
+    container_name: speek-server
+    image: speek-server
     env_file:
       - .env
     ports:
       - '8000:8000'
     # later na it gunicorn or uvicorn 
+    build: .
     command: python manage.py runserver 0.0.0.0:8000
     #volumes: 
-    #  - web_data:.:/app
+      #- web_data:\.:/app
     depends_on:
       migrate: 
         condition: service_completed_successfully
@@ -60,7 +60,7 @@ services:
       timeout: 3s
       retries: 5
       start_period: 10s
-
+    restart: unless-stopped
 
 volumes:
   web_data:
