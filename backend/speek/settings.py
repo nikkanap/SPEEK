@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+from os import getenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,10 +78,18 @@ WSGI_APPLICATION = 'speek.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': getenv('DATABASE_ENGINE') or 'django.db.backends.postgresql',
+        'NAME' : getenv('DATABASE_NAME'),
+        'USER' : getenv('DATABASE_USER'),
+        'PASSWORD' : getenv('DATABASE_PASSWORD'),
+        'HOST' : getenv('DATABASE_HOST'),
+        'PORT' : getenv('DATABASE_PORT'),
+    },
+    'OPTIONS': {
+        'isolation_level': psycopg2.extensions.ISOLATION_LEVEL_SERIALIZABLE,
     }
 }
 
