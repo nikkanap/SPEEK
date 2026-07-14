@@ -1,0 +1,10 @@
+# python venv directories
+venv/
+pyvenv.cfg
+
+# python cache files
+speek/__pycache__/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
