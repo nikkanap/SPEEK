@@ -1,9 +1,10 @@
 venv/
-__pychache__
 .env
 
 speek/__pycache__/
-__pycache__/
+webserver/__pycache__/
+webserver/migrations/__pycache__/
+/__pycache__/
 *.pyc
 *.pyo
 *.pyd
